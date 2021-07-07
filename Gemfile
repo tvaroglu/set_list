@@ -40,6 +40,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'pry'
   gem 'simplecov'
+  gem 'capybara' # for UI testing
+  gem 'launchy' # save_and_open page (relates to capybara utilization & debugging)
 end
 
 group :development do
