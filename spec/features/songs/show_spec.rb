@@ -21,12 +21,29 @@ RSpec.describe 'the songs show page' do
   it 'displays the name of the artist for the song' do
     artist = Artist.create!(name: 'Whitechapel')
     song = artist.songs.create!(title: 'This is Exile', length: 360, play_count: 2000)
-    song2 = artist.songs.create!(title: 'Possession', length: 405, play_count: 4000)
 
     visit "/songs/#{song.id}"
     ## provide a pop-up window during test execution, for a visual display!
     save_and_open_page
 
     expect(page).to have_content(artist.name)
+  end
+
+  # As a user
+  # When I visit a Song show page
+  # I see a link back to the songs index page
+  # When I click this link
+  # Then I am taken to the songs index
+  it 'displays a link to return to the index from the song show page' do
+    artist = Artist.create!(name: 'Belphegor')
+    song = artist.songs.create!(title: 'Apophis - Black Dragon', length: 666, play_count: 5000)
+
+    visit "/songs/#{song.id}"
+    expect(page).to have_content("Song Index")
+
+    visit "/songs"
+    expect(page).to have_content(song.title)
+    expect(page).to have_content("Length: #{song.length}")
+    expect(page).to have_content("Play Count: #{song.play_count}")
   end
 end
