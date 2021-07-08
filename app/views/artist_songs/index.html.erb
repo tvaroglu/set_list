@@ -1,0 +1,8 @@
+<h1>Artist: <%= @artist.name %></h1>
+<h3>Average song length: <%= @artist.average_song_length %></h3>
+<% @songs.each do |song| %>
+  <!-- below line is a 'rails view helper'; first arg is the text display, second arg is the route/destination -->
+  <%= link_to song.title, "/songs/#{song.id}" %>
+  <p>Play Count: <%= song.play_count %></p>
+  <p>Length: <%= song.length %></p>
+<% end %>
