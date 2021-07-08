@@ -5,4 +5,23 @@ class Song < ApplicationRecord
 
   ## the 'many' to 'one' relationship is defined here:
   belongs_to :artist
+
+  def written_by_artist?(artist)
+    artist.name == Artist.find(artist_id).name
+  end
+
+  def artist_name
+    Artist.find(artist_id).name
+  end
+
+  def other_artist_songs
+    all_songs = Song.where(artist_id: self.artist_id).map { |song| song }
+    ## Note, be VERY careful with the delete method..
+      ## it corresponds with the ActiveRecord delete method...
+      ## which can PERMANENTLY delete records from the db...
+    ## Acceptable in this scope, due to mapping query to new array
+    all_songs.delete(self)
+    all_songs
+  end
+
 end
