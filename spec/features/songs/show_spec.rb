@@ -41,9 +41,8 @@ RSpec.describe 'the songs show page' do
     visit "/songs/#{song.id}"
     expect(page).to have_content("Song Index")
 
-    visit "/songs"
-    expect(page).to have_content(song.title)
-    expect(page).to have_content("Length: #{song.length}")
-    expect(page).to have_content("Play Count: #{song.play_count}")
+    click_link 'Song Index'
+    expect(current_path).to eq('/songs')
   end
+
 end
