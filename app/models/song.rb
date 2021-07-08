@@ -7,7 +7,7 @@ class Song < ApplicationRecord
   belongs_to :artist
 
   def written_by_artist?(artist)
-    artist.name == Artist.find(artist_id).name
+    Artist.find(artist.id).name != nil
   end
 
   def artist_name

@@ -7,7 +7,7 @@ class Artist < ApplicationRecord
   ## ActiveRecord-driven helper method to manually re-create the association
     ## Method written with a different name than then built-in association, to avoid over-writing default behavior
   def all_songs
-    songs = Song.where(artist_id: self.id)
+    Song.where(artist_id: self.id)
   end
 
   def average_song_length
