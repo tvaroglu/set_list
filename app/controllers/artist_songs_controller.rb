@@ -6,4 +6,3 @@ class ArtistSongsController < ApplicationController
   end
 
 end
-

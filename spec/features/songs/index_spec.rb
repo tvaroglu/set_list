@@ -14,7 +14,7 @@ RSpec.describe 'songs index page', type: :feature do
 
     visit '/songs'
     ## courtesy of launchy gem:
-    save_and_open_page
+    # save_and_open_page
 
     # Best practice to include most specific syntax to fully test the rendered HTML:
     expect(page).to have_content(song1.title)
