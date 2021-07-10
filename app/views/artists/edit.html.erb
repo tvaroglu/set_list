@@ -1,0 +1,5 @@
+<%= form_with url: "/artists/#{@artist.id}/edit", method: :patch, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %><br><br>
+  <%= form.submit "Update Artist" %>
+<% end %>

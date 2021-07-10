@@ -1,7 +1,6 @@
 <h1>Artists</h1>
 <% @artists.each do |artist| %>
-  <%= link_to artist.name, "/artists/#{artist.id}" %>
-  <br>
+  <h3><em><%= artist.name %> <%= button_to "Edit: #{artist.name}", "/artists/#{artist.id}/edit", method: :get %></em></h3>
 <% end %>
 <br>
 

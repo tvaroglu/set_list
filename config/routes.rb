@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   get '/artists', to: 'artists#index'
   get '/artists/new', to: 'artists#new'
   get '/artists/:id', to: 'artists#show'
+  get '/artists/:id/edit', to: 'artists#edit'
   post '/artists', to: 'artists#create'
+  patch '/artists/:id/edit', to: 'artists#update'
 
   get '/artists/:id/songs', to: 'artist_songs#index'
 end
