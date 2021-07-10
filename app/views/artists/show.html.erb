@@ -1,0 +1,10 @@
+<form style="float:left; padding-top:5px;" action="/artists">
+  <input type="submit" value="Artists Index"/>
+</form>
+<br><br>
+
+
+<h1>Artist: <%= @artist.name %></h1>
+
+<p>Average song length: <%= @artist.average_song_length %></p>
+<p>Total song count: <%= @artist.songs.length %></p>

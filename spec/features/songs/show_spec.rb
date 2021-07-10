@@ -39,9 +39,9 @@ RSpec.describe 'the songs show page' do
     song = artist.songs.create!(title: 'Apophis - Black Dragon', length: 666, play_count: 5000)
 
     visit "/songs/#{song.id}"
-    expect(page).to have_content("Song Index")
+    # save_and_open_page
 
-    click_link 'Song Index'
+    click_on 'Songs Index'
     expect(current_path).to eq('/songs')
   end
 

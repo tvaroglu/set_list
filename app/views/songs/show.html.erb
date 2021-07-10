@@ -1,4 +1,7 @@
-<a href="/songs">Song Index</a>
+<form style="float:left; padding-top:5px;" action="/songs">
+  <input type="submit" value="Songs Index"/>
+</form>
+<br><br>
 
 <h1><%= @song.title %></h1>
 <p>Artist: <%= @song.artist.name %></p>
