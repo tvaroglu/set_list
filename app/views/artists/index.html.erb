@@ -1,1 +1,10 @@
-<%= link_to "New Artist", "/artists/new" %>
+<h1>Artists</h1>
+<% @artists.each do |artist| %>
+  <%= link_to artist.name, "/artists/#{artist.id}" %>
+  <br>
+<% end %>
+<br>
+
+<form style="float:left; padding-top:5px;" action="/artists/new">
+  <input type="submit" value="New Artist"/>
+</form>

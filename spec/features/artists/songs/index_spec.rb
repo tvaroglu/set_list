@@ -5,7 +5,7 @@ RSpec.describe 'artists songs index page' do
   # When I visit an Artist's Songs index
   # Then I see the titles of all that Artist's Songs
   # And I see that each title is a link to the Song's show page
-  it "can display all of the artist's song titles" do
+  it "displays all of the artist's song titles" do
     artist = Artist.create!(name: 'Belphegor')
     song1 = artist.songs.create!(title: 'Apophis - Black Dragon', length: 666, play_count: 5000)
     song2 = artist.songs.create!(title: 'Baphomet', length: 525, play_count: 999)

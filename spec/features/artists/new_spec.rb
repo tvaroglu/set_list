@@ -12,7 +12,7 @@ RSpec.describe 'the Artist creation' do
   it "links to the new page from the artist's index" do
     visit '/artists'
 
-    click_link('New Artist')
+    click_on('New Artist')
     expect(current_path).to eq('/artists/new')
   end
 

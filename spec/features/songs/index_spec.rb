@@ -5,7 +5,7 @@ RSpec.describe 'songs index page', type: :feature do
   ## As a user,
   ## when I visit '/songs'
   ## I see each song's title and play count
-  it 'can see all song titles and play counts' do
+  it 'displays all song titles and play counts' do
     # song1 = Song.create!(title: 'Apophis - Black Dragon', length: 666, play_count: 5000)
     artist1 = Artist.create!(name: 'Belphegor')
     song1 = artist1.songs.create!(title: 'Apophis - Black Dragon', length: 666, play_count: 5000)
