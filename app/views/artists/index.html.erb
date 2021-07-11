@@ -1,9 +1,12 @@
-<h1>Artists</h1>
-<% @artists.each do |artist| %>
-  <h3><em><%= artist.name %> <%= button_to "Edit: #{artist.name}", "/artists/#{artist.id}/edit", method: :get %></em></h3>
-<% end %>
-<br>
-
-<form style="float:left; padding-top:5px;" action="/artists/new">
+<h1>All Artists</h1>
+<form style="float:left; padding-bottom:5px;" action="/artists/new">
   <input type="submit" value="New Artist"/>
 </form>
+<br><br>
+
+<% @artists.each do |artist| %>
+  <h3><em><%= artist.name %></em></h3>
+  <%= button_to "Edit: #{artist.name}", "/artists/#{artist.id}/edit", method: :get %>
+  <%= button_to "Delete: #{artist.name}", "/artists/#{artist.id}", method: :delete %>
+  <br>
+<% end %>
