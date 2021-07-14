@@ -64,10 +64,12 @@ RSpec.describe Artist, type: :model do
         end
       end
     end
+  end
 
-    describe 'last_updated' do
+  describe 'custom inheritance-driven methods' do
+    describe '#last_updated' do
       it 'returns the date the instance was last updated' do
-        artist = Artist.create(name: 'prince')
+        artist = Artist.create!(name: 'prince')
         updated_time = Time.zone.now
 
         artist.update(name: 'The Artist Formerly Known as Prince', updated_at: updated_time)
@@ -75,16 +77,63 @@ RSpec.describe Artist, type: :model do
         expect(artist.last_updated).to eq(updated_time.strftime("%Y-%m-%d"))
       end
     end
+
+    describe '#sorted_alphabetically' do
+      it 'returns the artists songs sorted alphabetically WITH inheritance' do
+        artist = Artist.create!(name: 'Behemoth')
+        song_1 = artist.songs.create!(title: 'Demigod', length: 666, play_count: 5000)
+        song_2 = artist.songs.create!(title: 'Conquer All', length: 666, play_count: 5000)
+
+        expected = artist.sorted_alphabetically(Song, :title, :artist_id, artist.id)
+
+        expect(expected.length).to eq(2)
+        expect(expected.first).to eq(song_2)
+        expect(expected.last).to eq(song_1)
+      end
+
+      it 'returns the artists songs sorted alphabetically WITHOUT inheritance' do
+        artist = Artist.create!(name: 'Behemoth')
+        song_1 = artist.songs.create!(title: 'Demigod', length: 666, play_count: 5000)
+        song_2 = artist.songs.create!(title: 'Conquer All', length: 666, play_count: 5000)
+
+        expected = artist.songs_sorted_alphabetically
+
+        expect(expected.length).to eq(2)
+        expect(expected.first).to eq(song_2)
+        expect(expected.last).to eq(song_1)
+      end
+    end
+
+    describe '#x_shortest' do
+      it "returns x number of the artist's songs sorted ascending by length" do
+        artist = Artist.create(name: 'Behemoth')
+        song_1 = artist.songs.create!(title: 'Total Invasion', length: 789, play_count: 5000)
+        song_2 = artist.songs.create!(title: 'Demigod', length: 123, play_count: 5000)
+        song_3 = artist.songs.create!(title: 'Conquer All', length: 456, play_count: 5000)
+
+        expected = artist.x_shortest(2, Song, :length, :artist_id, artist.id)
+
+        expect(expected.length).to eq(2)
+        expect(expected.first).to eq(song_2)
+        expect(expected.last).to eq(song_3)
+      end
+    end
   end
 
 
-  describe 'class methods' do
-    describe 'newest_first' do
+  describe '::class methods' do
+    describe '#newest_first' do
       it 'returns songs ordered by most recent creation' do
         prince = Artist.create(name: 'Prince')
         pink = Artist.create(name: 'Pink')
 
         expect(Artist.newest_first).to eq([pink, prince])
+      end
+    end
+
+    describe '#custom_search' do
+      xit 'returns the number of songs for an artist that have at least 1 play and a length greater than 0' do
+        # stuff
       end
     end
   end

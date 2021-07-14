@@ -4,6 +4,10 @@ class Artist < ApplicationRecord
   ## other side of the relationship (songs model) needs similar specification as well!
 
 
+  def songs_sorted_alphabetically
+    Song.order(:title).where(artist_id: self.id)
+  end
+
   ## ActiveRecord-driven helper method to manually re-create the association
     ## Method written with a different name than then built-in association, to avoid over-writing default behavior
   def all_songs
