@@ -64,7 +64,22 @@ RSpec.describe Artist, type: :model do
         end
       end
     end
+
+    describe '#played_songs' do
+      it 'returns songs with at least 1 play count and a length greater than 0' do
+        artist = Artist.create!(name: 'Behemoth')
+        song_1 = artist.songs.create!(title: 'Demigod', length: 666, play_count: 0)
+        song_2 = artist.songs.create!(title: 'Conquer All', length: 666, play_count: 5000)
+        song_3 = artist.songs.create!(title: 'Total Invasion', length: 0, play_count: 5000)
+
+        expected = artist.played_songs
+
+        expect(expected.length).to eq(1)
+        expect(expected.first).to eq(song_2)
+      end
+    end
   end
+
 
   describe 'custom inheritance-driven methods' do
     describe '#last_updated' do
@@ -128,12 +143,6 @@ RSpec.describe Artist, type: :model do
         pink = Artist.create(name: 'Pink')
 
         expect(Artist.newest_first).to eq([pink, prince])
-      end
-    end
-
-    describe '#custom_search' do
-      xit 'returns the number of songs for an artist that have at least 1 play and a length greater than 0' do
-        # stuff
       end
     end
   end

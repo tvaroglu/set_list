@@ -39,6 +39,7 @@ RSpec.describe Song do
     end
   end
 
+
   describe 'custom inheritance-driven methods' do
     describe '#last_updated' do
       it 'returns the date the instance was last updated' do
@@ -50,18 +51,6 @@ RSpec.describe Song do
 
         expect(song.last_updated).to eq(updated_time.strftime("%Y-%m-%d"))
       end
-    end
-
-    it 'returns all songs sorted alphabetically WITH inheritance' do
-      artist = Artist.create!(name: 'Behemoth')
-      song_1 = artist.songs.create!(title: 'Demigod', length: 666, play_count: 5000)
-      song_2 = artist.songs.create!(title: 'Conquer All', length: 666, play_count: 5000)
-
-      expected = artist.sorted_alphabetically(Song, :title)
-
-      expect(expected.length).to eq(2)
-      expect(expected.first).to eq(song_2)
-      expect(expected.last).to eq(song_1)
     end
   end
 
@@ -77,12 +66,41 @@ RSpec.describe Song do
       end
     end
 
+    describe '#sorted_alphabetically' do
+      it 'returns all songs sorted alphabetically WITH inheritance' do
+        artist = Artist.create!(name: 'Behemoth')
+        song_1 = artist.songs.create!(title: 'Demigod', length: 666, play_count: 5000)
+        song_2 = artist.songs.create!(title: 'Conquer All', length: 666, play_count: 5000)
+
+        expected = Song.sorted_alphabetically(Song, :title)
+
+        expect(expected.length).to eq(2)
+        expect(expected.first).to eq(song_2)
+        expect(expected.last).to eq(song_1)
+      end
+    end
+
+    describe '#x_shortest' do
+      it "returns x number of songs sorted ascending by length" do
+        artist = Artist.create!(name: 'Behemoth')
+        song_1 = artist.songs.create!(title: 'Total Invasion', length: 789, play_count: 5000)
+        song_2 = artist.songs.create!(title: 'Demigod', length: 123, play_count: 5000)
+        song_3 = artist.songs.create!(title: 'Conquer All', length: 456, play_count: 5000)
+
+        expected = Song.x_shortest(2, Song, :length)
+
+        expect(expected.length).to eq(2)
+        expect(expected.first).to eq(song_2)
+        expect(expected.last).to eq(song_3)
+      end
+    end
+
     describe '#title_search' do
       xit 'can return a list of songs based on case-insensitive title search' do
         # stuff
       end
     end
-    
+
     describe '#custom_search' do
       xit 'returns the top 3 songs that have the most plays, a length greater than x, and were updated within the last three days' do
         # stuff

@@ -21,8 +21,20 @@ class ApplicationRecord < ActiveRecord::Base
     end
   end
 
-  def x_shortest(x, table, sort_criteria, foreign_key, primary_key)
-    table.order(sort_criteria).where("#{foreign_key} = #{primary_key}").limit(x)
+  def self.sorted_alphabetically(table, sort_criteria)
+    table.order(sort_criteria)
+  end
+
+  def x_shortest(x, table, sort_criteria, foreign_key=nil, primary_key=nil)
+    if foreign_key != nil && primary_key != nil
+      table.order(sort_criteria).where("#{foreign_key} = #{primary_key}").limit(x)
+    else
+      table.order(sort_criteria).limit(x)
+    end
+  end
+
+  def self.x_shortest(x, table, sort_criteria)
+    table.order(sort_criteria).limit(x)
   end
 
 end
