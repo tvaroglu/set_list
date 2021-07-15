@@ -3,6 +3,14 @@ class Artist < ApplicationRecord
   has_many :songs
   ## other side of the relationship (songs model) needs similar specification as well!
 
+  def played_songs
+    # self.songs.where("play_count >= ?", 1).where("length > ?", 0)
+    self.songs.where("play_count >= ? AND length > ?", 1, 0).count
+  end
+
+  def songs_sorted_alphabetically
+    Song.order(:title).where(artist_id: self.id)
+  end
 
   ## ActiveRecord-driven helper method to manually re-create the association
     ## Method written with a different name than then built-in association, to avoid over-writing default behavior

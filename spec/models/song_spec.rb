@@ -37,8 +37,11 @@ RSpec.describe Song do
         expect(@song1.other_artist_songs).to eq([@song2])
       end
     end
+  end
 
-    describe 'last_updated' do
+
+  describe 'custom inheritance-driven methods' do
+    describe '#last_updated' do
       it 'returns the date the instance was last updated' do
         artist = Artist.create(name: 'Prince')
         song = artist.songs.create(title: 'kiss', play_count: 5832, length: 700)
@@ -52,14 +55,63 @@ RSpec.describe Song do
   end
 
 
-  describe 'class methods' do
-    describe 'sort_by_recently_created' do
+  describe '::class methods' do
+    describe '#sort_by_recently_created' do
       it 'returns songs ordered by most recent creation' do
         artist = Artist.create(name: 'Prince')
         kiss = artist.songs.create(title: 'Kiss', play_count: 8962011, length: 300)
         beret = artist.songs.create(title: 'Raspberry Beret', play_count: 462291, length: 300)
         rain = artist.songs.create(title: 'Purple Rain', play_count: 8000000, length: 300)
         expect(Song.sort_by_recently_created).to eq([rain, beret, kiss])
+      end
+    end
+
+    describe '#sorted_alphabetically' do
+      it 'returns all songs sorted alphabetically WITH inheritance' do
+        artist = Artist.create!(name: 'Behemoth')
+        song_1 = artist.songs.create!(title: 'Demigod', length: 666, play_count: 5000)
+        song_2 = artist.songs.create!(title: 'Conquer All', length: 666, play_count: 5000)
+
+        expected = Song.sorted_alphabetically(Song, :title)
+
+        expect(expected.length).to eq(2)
+        expect(expected.first).to eq(song_2)
+        expect(expected.last).to eq(song_1)
+      end
+    end
+
+    describe '#x_shortest' do
+      it "returns x number of songs sorted ascending by length" do
+        artist = Artist.create!(name: 'Behemoth')
+        song_1 = artist.songs.create!(title: 'Total Invasion', length: 789, play_count: 5000)
+        song_2 = artist.songs.create!(title: 'Demigod', length: 123, play_count: 5000)
+        song_3 = artist.songs.create!(title: 'Conquer All', length: 456, play_count: 5000)
+
+        expected = Song.x_shortest(2, Song, :length)
+
+        expect(expected.length).to eq(2)
+        expect(expected.first).to eq(song_2)
+        expect(expected.last).to eq(song_3)
+      end
+    end
+
+    describe '#title_search' do
+      it 'can return a list of songs based on case-insensitive title search' do
+        artist = Artist.create!(name: 'Behemoth')
+        song_1 = artist.songs.create!(title: 'Total Invasion', length: 789, play_count: 5000)
+        song_2 = artist.songs.create!(title: 'Demigod', length: 123, play_count: 5000)
+        song_3 = artist.songs.create!(title: 'Conquer All', length: 456, play_count: 5000)
+
+        expected = Song.title_search('GoD')
+
+        expect(expected.length).to eq(1)
+        expect(expected.first).to eq(song_2)
+      end
+    end
+
+    describe '#custom_search' do
+      xit 'returns the top 3 songs that have the most plays, a length greater than x, and were updated within the last three days' do
+        # stuff
       end
     end
   end
