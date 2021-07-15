@@ -96,8 +96,16 @@ RSpec.describe Song do
     end
 
     describe '#title_search' do
-      xit 'can return a list of songs based on case-insensitive title search' do
-        # stuff
+      it 'can return a list of songs based on case-insensitive title search' do
+        artist = Artist.create!(name: 'Behemoth')
+        song_1 = artist.songs.create!(title: 'Total Invasion', length: 789, play_count: 5000)
+        song_2 = artist.songs.create!(title: 'Demigod', length: 123, play_count: 5000)
+        song_3 = artist.songs.create!(title: 'Conquer All', length: 456, play_count: 5000)
+
+        expected = Song.title_search('GoD')
+
+        expect(expected.length).to eq(1)
+        expect(expected.first).to eq(song_2)
       end
     end
 

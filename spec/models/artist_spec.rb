@@ -73,9 +73,7 @@ RSpec.describe Artist, type: :model do
         song_3 = artist.songs.create!(title: 'Total Invasion', length: 0, play_count: 5000)
 
         expected = artist.played_songs
-
-        expect(expected.length).to eq(1)
-        expect(expected.first).to eq(song_2)
+        expect(expected).to eq(1)
       end
     end
   end

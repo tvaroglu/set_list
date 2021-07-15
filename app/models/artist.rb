@@ -5,7 +5,7 @@ class Artist < ApplicationRecord
 
   def played_songs
     # self.songs.where("play_count >= ?", 1).where("length > ?", 0)
-    self.songs.where("play_count >= ? AND length > ?", 1, 0)
+    self.songs.where("play_count >= ? AND length > ?", 1, 0).count
   end
 
   def songs_sorted_alphabetically
