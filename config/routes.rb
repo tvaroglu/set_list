@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   delete '/artists/:id', to: 'artists#destroy'
 
   get '/artists/:id/songs', to: 'artist_songs#index'
+
+  get '/playlists', to: 'playlists#index'
 end
