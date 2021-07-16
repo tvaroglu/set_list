@@ -5,6 +5,9 @@ class Song < ApplicationRecord
 
   ## the 'many' to 'one' relationship is defined here:
   belongs_to :artist
+  ## the 'many' to 'many' relationship is defined here:
+  has_many :playlist_songs
+  has_many :playlists, through: :playlist_songs
 
   def self.title_search(criteria)
     Song.where("title LIKE '%#{criteria.to_s.downcase}%'")
