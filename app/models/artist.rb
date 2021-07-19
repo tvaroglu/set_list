@@ -3,6 +3,11 @@ class Artist < ApplicationRecord
   has_many :songs
   ## other side of the relationship (songs model) needs similar specification as well!
 
+  validates :name, presence: true
+  # validates :name, uniqueness: true
+  # validates_uniqueness_of :name
+  validates_uniqueness_of :name, :case_sensitive => false
+
   def played_songs
     # self.songs.where("play_count >= ?", 1).where("length > ?", 0)
     self.songs.where("play_count >= ? AND length > ?", 1, 0).count
