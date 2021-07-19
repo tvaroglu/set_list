@@ -6,6 +6,11 @@ RSpec.describe Song do
     it {should have_many(:playlists).through(:playlist_songs)}
   end
 
+  describe 'validations' do
+    it {should validate_presence_of(:length)}
+    it { should validate_numericality_of(:length).is_less_than(50000) }
+  end
+
   describe 'instance methods' do
     before :each do
       @artist = Artist.create!(name: 'Belphegor')

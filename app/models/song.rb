@@ -9,6 +9,8 @@ class Song < ApplicationRecord
   has_many :playlist_songs
   has_many :playlists, through: :playlist_songs
 
+  validates :length, presence: true, numericality: { less_than: 50000 }
+
   def self.title_search(criteria)
     Song.where("title LIKE '%#{criteria.to_s.downcase}%'")
   end
