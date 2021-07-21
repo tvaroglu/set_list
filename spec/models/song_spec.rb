@@ -116,12 +116,6 @@ RSpec.describe Song do
         expect(expected.first).to eq(song_2)
       end
     end
-
-    describe '#custom_search' do
-      xit 'returns the top 3 songs that have the most plays, a length greater than x, and were updated within the last three days' do
-        # stuff
-      end
-    end
   end
 
 end
