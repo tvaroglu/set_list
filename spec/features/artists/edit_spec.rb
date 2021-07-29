@@ -14,6 +14,7 @@ RSpec.describe 'artist edit page' do
     artist = Artist.create!(name: 'Beneath the Massacre')
     visit '/artists'
     # save_and_open_page
+    
     click_on "Edit: #{artist.name}"
 
     expect(current_path).to eq("/artists/#{artist.id}/edit")
@@ -22,13 +23,14 @@ RSpec.describe 'artist edit page' do
   it 'can edit the artist' do
     artist = Artist.create!(name: 'Beneath the Massacres')
     visit "/artists"
+    # save_and_open_page
 
     expect(page).to have_content('Beneath the Massacres')
 
     click_on "Edit: #{artist.name}"
 
     # visit "/artists/#{artist.id}/edit"
-    fill_in 'name', with: 'Beneath the Massacre'
+    fill_in 'Name', with: 'Beneath the Massacre'
     click_button 'Update Artist'
 
     expect(current_path).to eq("/artists/#{artist.id}")

@@ -9,6 +9,7 @@ class ArtistsController < ApplicationController
   end
 
   def new
+    @artist = Artist.new
   end
 
   def create
@@ -35,7 +36,7 @@ class ArtistsController < ApplicationController
 private ## use case -- only accessible inside the class; provides additional security
   ## Rails helper method, to support the #create method (i.e. for a lengthier list of params)
   def artist_params
-    params.permit(:name)
+    params.require(:artist).permit(:name)
   end
 
 end
